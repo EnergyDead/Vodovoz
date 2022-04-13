@@ -38,11 +38,14 @@ namespace Vodovoz.Reports.Logistic
 				Parameters = new Dictionary<string, object>
 				{
 					{ "start_date", dateperiodpicker.StartDate },
-					{ "end_date", dateperiodpicker.EndDate.AddHours(3) },
+					{ "end_date", dateperiodpicker.EndDate.AddHours(3) }, // todo: для 
 					{ "is_driver_sort", ychkDriverSort.Active },
 					{ "geographic_group_id", (ySpecCmbGeographicGroup.SelectedItem as GeographicGroup)?.Id ?? 0 },
 					{ "geographic_group_name", (ySpecCmbGeographicGroup.SelectedItem as GeographicGroup)?.Name ?? "Все" },
 					{ "exclude_truck_drivers_office_employees", ycheckExcludeTruckAndOfficeEmployees.Active }
+					// todo: show all orders
+					// todo: добавить is_FastDelivery
+					// todo: добавить exclude_FastDelivery
 				}
 			};
 		}
