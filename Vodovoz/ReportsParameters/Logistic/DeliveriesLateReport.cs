@@ -38,14 +38,12 @@ namespace Vodovoz.Reports.Logistic
 				Parameters = new Dictionary<string, object>
 				{
 					{ "start_date", dateperiodpicker.StartDate },
-					{ "end_date", dateperiodpicker.EndDate.AddHours(3) }, // todo: для 
+					{ "end_date", dateperiodpicker.EndDate.AddHours(3) },
 					{ "is_driver_sort", ychkDriverSort.Active },
 					{ "geographic_group_id", (ySpecCmbGeographicGroup.SelectedItem as GeographicGroup)?.Id ?? 0 },
 					{ "geographic_group_name", (ySpecCmbGeographicGroup.SelectedItem as GeographicGroup)?.Name ?? "Все" },
-					{ "exclude_truck_drivers_office_employees", ycheckExcludeTruckAndOfficeEmployees.Active }
-					// todo: show all orders
-					// todo: добавить is_FastDelivery
-					// todo: добавить exclude_FastDelivery
+					{ "exclude_truck_drivers_office_employees", ycheckExcludeTruckAndOfficeEmployees.Active },
+					{ "select_mode", GetSelectMode().ToString() }
 				}
 			};
 		}
@@ -59,5 +57,24 @@ namespace Vodovoz.Reports.Logistic
 			OnUpdate (true);
 		}
 
+		private SelectMode GetSelectMode()
+		{
+			if(ycheckExcludeTruckAndOfficeEmployees.Active) // todo: если кнопка Отображать заказы за час.
+			{
+				return SelectMode.DeliveryInAnHour;
+			}
+			else if(!ycheckExcludeTruckAndOfficeEmployees.Active) // todo: если кнопка Отображать БЕЗ заказы за час.
+			{
+				return SelectMode.WithoutDeliveryInAnHour;
+			}
+			return SelectMode.All; // todo: если кнопка Отображать все заказы.
+		}
+
+		private enum SelectMode
+		{
+			All,
+			DeliveryInAnHour,
+			WithoutDeliveryInAnHour
+		}
 	}
 }
